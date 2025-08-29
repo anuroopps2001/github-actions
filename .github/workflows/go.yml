@@ -29,5 +29,5 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_KEY }}
         AWS_DEFAULT_REGION: "us-east-1"
       run: |
-        aws s3 cp ./go-app/github-actions s3://${{ secrets.TARGET_BUCKET }}/ 
+        aws s3 cp ./go-app/go-binary s3://${{ secrets.TARGET_BUCKET }}/ 
 
