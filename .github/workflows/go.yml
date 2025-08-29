@@ -23,3 +23,12 @@ jobs:
     - name: Test
       working-directory: ./go-app
       run: go test -v ./...
+
+    - name: Upload binary to s3
+         env: 
+           AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
+           AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_KEY }}
+           AWS_DEFAULT_REGION: "us-east-1"
+         run: |
+           aws s3 cp ./github-actions.exe s3://${{ secrets.TARGET_BUCKET }}/ 
+
