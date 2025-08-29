@@ -1,7 +1,7 @@
 on:
   push:
     paths:
-      - 'smaple/**'
+      - 'sample/**'
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
