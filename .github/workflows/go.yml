@@ -44,3 +44,21 @@ jobs:
         aws s3 cp s3://${{ secrets.TARGET_BUCKET }}/go-binary .
         ls -ltr
         chmod +x ./go-binary
+    - name: Set up SSH key
+      run: |
+        mkdir ~/.ssh
+        echo "${{ secrets.ACCESS_SECRET }}" > ~/.ssh/private_key.pem
+        chmod 600 ~/.ssh/private_key.pem
+    - name: Copy Binary to bastion
+      run: |
+        scp -i ~/.ssh/private_key.pem ./go-binary ubuntu@18.210.94.217:/tmp/go-binary
+
+    - name: Move binary to App server
+      run: |
+        ssh -i ~/.ssh/private_key.pem ubuntu@18.210.94.217 \
+          "scp /tmp/go-binary anuroop@10.0.0.159:/home/anuroop/"
+        
+    - name: Verify on App server
+      run: |
+        ssh -i ~/.ssh/private_key.pem ubuntu@18.210.94.217 \
+          "ssh anuroop@10.0.0.159 'hostname && whoami'"
