@@ -29,5 +29,18 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_KEY }}
         AWS_DEFAULT_REGION: "us-east-1"
       run: |
-        aws s3 cp ./go-app/go-binary s3://${{ secrets.TARGET_BUCKET }}/ 
-
+        aws s3 cp ./go-app/go-binary s3://${{ secrets.TARGET_BUCKET }}/
+   
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download executable from AWS S3
+      env: 
+        AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_KEY }}
+        AWS_DEFAULT_REGION: "us-east-1"
+      run: 
+        aws s3 cp s3://${{ secrets.TARGET_BUCKET }}/go-binary .
+        ls -ltr
+        chmod +x ./go-binary
