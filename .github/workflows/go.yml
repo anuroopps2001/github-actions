@@ -51,6 +51,7 @@ jobs:
         chmod 600 ~/.ssh/private_key.pem
     - name: Copy Binary to bastion
       run: |
+        ls -ltr ~/.ssh/
         scp -i ~/.ssh/private_key.pem ./go-binary ubuntu@18.210.94.217:/tmp/go-binary
 
     - name: Move binary to App server
