@@ -42,7 +42,7 @@ jobs:
           aws_bucket: ${{ secrets.TARGET_BUCKET }}
           target: .
       - name: ssh-scp-ssh-pipelines
-        uses: cross-the-world/ssh-scp-ssh-pipelines@master
+        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
         with:
           host: 18.210.94.217
           user: ubuntu
