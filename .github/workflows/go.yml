@@ -51,7 +51,7 @@ jobs:
     - name: Copy Binary to bastion
       run: |
         ls -ltr ~/.ssh/
-        scp --o StrictHostKeyChecking=no -i ~/.ssh/private_key.pem ./go-binary ubuntu@18.210.94.217:/tmp/go-binary
+        scp -o StrictHostKeyChecking=no -i ~/.ssh/private_key.pem ./go-binary ubuntu@18.210.94.217:/tmp/go-binary
 
     - name: Move binary to App server
       run: |
